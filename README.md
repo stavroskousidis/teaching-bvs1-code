@@ -39,7 +39,9 @@ Expected guest output:
 Hello BVS1
 ```
 
-Exit QEMU with **Ctrl-a**, then **x**.
+No guest prompt appears afterwards. This is expected: the starter target contains neither an operating system nor a shell. QEMU remains the foreground process in the Ubuntu development VM.
+
+Exit QEMU with **Ctrl-a**, release the keys, then press **x**. The development-VM shell prompt should then return.
 
 Useful inspection targets:
 
@@ -52,7 +54,7 @@ Generated files are written to `build/`.
 
 ## Environment
 
-The supported development environment is the course-provided Ubuntu 26.04 VM named `bvs1`.
+The supported development environment is the course-provided Ubuntu 26.04 VM named `bvs1`. Complete Lab 0 before using this repository; `make check` is the environment gate.
 
 Inside that VM:
 
