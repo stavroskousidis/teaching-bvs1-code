@@ -25,6 +25,8 @@ Your clone is your local semester repository. Keep it throughout the course and 
 
 Do not push your work to this repository, and do not pull new course states unless explicitly instructed.
 
+Local Git history is **not a backup**. Keep regular copies of your repository or a Git bundle outside the course VM, especially before checkpoints. Lab 0 describes the supported backup procedure.
+
 ## Check, Build, and Run
 
 ```bash
