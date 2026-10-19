@@ -9,6 +9,14 @@ ELF := $(BUILD_DIR)/hello-bvs1.elf
 MAP := $(BUILD_DIR)/hello-bvs1.map
 DISASM := $(BUILD_DIR)/hello-bvs1.disasm
 
+# The process implementation will grow in this repository. Keep the build
+# explicit about the provided low-level boundary while accepting additional C
+# files students add at the repository root.
+C_SOURCES := $(sort $(wildcard *.c))
+ASM_SOURCES := start.S context.S
+HEADERS := $(sort $(wildcard *.h))
+SOURCES := $(ASM_SOURCES) $(C_SOURCES)
+
 CFLAGS := \
 	-march=rv64imac \
 	-mabi=lp64 \
@@ -32,7 +40,7 @@ LDFLAGS := \
 	-Wl,--build-id=none \
 	-Wl,-Map,$(MAP)
 
-.PHONY: all check run inspect disasm clean
+.PHONY: all check check-cp1 run inspect disasm clean
 
 all: check $(ELF)
 	@$(SIZE) $(ELF)
@@ -50,8 +58,11 @@ check:
 $(BUILD_DIR):
 	mkdir -p $@
 
-$(ELF): start.S main.c linker.ld | $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) start.S main.c -o $@
+$(ELF): $(SOURCES) $(HEADERS) linker.ld | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(SOURCES) -o $@
+
+check-cp1: all
+	@BVS1_CP1_ELF="$(ELF)" QEMU="$(QEMU)" ./scripts/check-cp1.sh
 
 run: all
 	@echo "Starting bare RV64 machine. Exit QEMU with Ctrl-a, then x."
