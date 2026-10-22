@@ -18,13 +18,13 @@ struct context {
 };
 
 /*
- * Save the current context in *old_context, restore *new_context, and
+ * Save the current context in *current_context, restore *next_context, and
  * continue at the restored return address.
  *
  * This low-level mechanism is provided course infrastructure. The process
  * abstraction and lifecycle built on top of it remain student work.
  */
-void context_switch(struct context *old_context,
-                    const struct context *new_context);
+void context_switch(struct context *current_context,
+                    const struct context *next_context);
 
 #endif
