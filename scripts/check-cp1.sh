@@ -34,11 +34,11 @@ fi
 tr -d '\r' < "${LOG}" > "${NORMALIZED}"
 
 expected='
-os: starting process
-process: hello
+exercise: seed 11
+process: before yield 34
 os: process yielded
-process: resumed
-os: process exited 42
+process: result 177
+os: process exited 177
 '
 
 previous=0
