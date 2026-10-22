@@ -3,11 +3,11 @@
     .type context_switch, @function
 
 /*
- * void context_switch(struct context *old_context,
- *                     const struct context *new_context)
+ * void context_switch(struct context *current_context,
+ *                     const struct context *next_context)
  *
- * a0 = old_context
- * a1 = new_context
+ * a0 = current_context
+ * a1 = next_context
  *
  * The C calling convention already treats a0-a7 and t0-t6 as caller-saved.
  * Preserve the return address, stack pointer, and callee-saved s-registers.
