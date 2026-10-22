@@ -26,9 +26,38 @@ static void uart_puts(const char *s)
     }
 }
 
+static void uart_put_u32(uint32_t value)
+{
+    char digits[10];
+    unsigned int count = 0;
+
+    if (value == 0) {
+        uart_putc('0');
+        return;
+    }
+
+    while (value != 0) {
+        digits[count++] = (char)('0' + (value % 10u));
+        value /= 10u;
+    }
+
+    while (count != 0) {
+        uart_putc(digits[--count]);
+    }
+}
+
 void main(void)
 {
     uart_puts("Hello BVS1\n");
+
+    /*
+     * Checkpoint 1:
+     * Reuse the seeded Exercise 02 process experiment as your application
+     * test, but implement the process abstraction yourself.
+     *
+     * No process API implementation is provided on this branch.
+     */
+    (void)uart_put_u32;
 
     for (;;) {
     }
